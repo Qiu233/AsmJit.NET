@@ -4,7 +4,6 @@ namespace AsmJit {
 	namespace Core {
 		public ref class ArchInfo {
 			MWASMJIT_NATIVEPOINTER(ArchInfo, asmjit::ArchInfo);
-			MWASMJIT_NATIVEPOINTERCTOR(ArchInfo, asmjit::ArchInfo);
 		public:
 			enum class Id : uint8_t {
 				kIdNone = 0,
@@ -63,6 +62,8 @@ namespace AsmJit {
 				}
 			}
 
+		internal:ArchInfo(asmjit::ArchInfo& ai) { _NativePointer = &ai; }
+		public:
 			ArchInfo() { _NativePointer = new asmjit::ArchInfo(); }
 			ArchInfo(Id type, SubType subType) { _NativePointer = new asmjit::ArchInfo((uint32_t)type, (uint32_t)subType); }
 			~ArchInfo() {

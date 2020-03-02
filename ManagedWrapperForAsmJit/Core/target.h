@@ -9,12 +9,11 @@ namespace AsmJit {
 		public:
 			CodeInfo() {
 				_NativePointer = new asmjit::CodeInfo();
-				_ArchInfo = gcnew AsmJit::Core::ArchInfo(&_NativePointer->_archInfo);
-
+				_ArchInfo = gcnew AsmJit::Core::ArchInfo(_NativePointer->_archInfo);
 			}
 			CodeInfo(ArchInfo::Id archId, ArchInfo::SubType archMode, uint64_t baseAddress) {
 				_NativePointer = new asmjit::CodeInfo((uint32_t)archId, (uint32_t)archMode, baseAddress);
-				_ArchInfo = gcnew AsmJit::Core::ArchInfo(&_NativePointer->_archInfo);
+				_ArchInfo = gcnew AsmJit::Core::ArchInfo(_NativePointer->_archInfo);
 			}
 			CodeInfo(ArchInfo::Id archId, ArchInfo::SubType archMode) {
 				this->CodeInfo::CodeInfo(archId, archMode, asmjit::Globals::kNoBaseAddress);
@@ -24,7 +23,6 @@ namespace AsmJit {
 			}
 			~CodeInfo()
 			{
-				delete _ArchInfo;
 				delete NativePointer;
 			}
 			property AsmJit::Core::ArchInfo^ ArchInfo {

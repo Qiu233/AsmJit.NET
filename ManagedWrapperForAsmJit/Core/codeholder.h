@@ -12,9 +12,15 @@ namespace AsmJit {
 					kFlagIsExternal = 0x00000001u,
 					kFlagIsFixed = 0x00000002u
 				};
-				MWASMJIT_NATIVEPROPERTY_WRAPPER(uint8_t*, Data, _data);
-				MWASMJIT_NATIVEPROPERTY_WRAPPER(size_t, Size, _size);
-				MWASMJIT_NATIVEPROPERTY_WRAPPER(size_t, Capacity, _capacity);
+				MWASMJIT_NATIVEPROPERTY_WRAPPER_GETTERONLY(uint8_t*, Data, _data);
+				MWASMJIT_NATIVEPROPERTY_WRAPPER_GETTERONLY(size_t, Size, _size);
+				MWASMJIT_NATIVEPROPERTY_WRAPPER_GETTERONLY(size_t, Capacity, _capacity);
+
+				property System::IntPtr DataPointer {
+					System::IntPtr get() {
+						return (System::IntPtr)_NativePointer->_data;
+					}
+				};
 
 				property CodeBufferFlags Flags {
 					CodeBufferFlags get() {
@@ -25,6 +31,11 @@ namespace AsmJit {
 					}
 				};
 
+			internal:
+				CodeBuffer(asmjit::CodeBuffer& cb) {
+					_NativePointer = &cb;
+				}
+			public:
 				CodeBuffer() {
 					_NativePointer = new asmjit::CodeBuffer();
 				}
@@ -46,12 +57,18 @@ namespace AsmJit {
 			private:CodeBuffer^ _Buffer;
 			public:
 
+			internal:
+				Section(asmjit::Section& section) {
+					_NativePointer = &section;
+					_Buffer = gcnew CodeBuffer(_NativePointer->_buffer);
+				}
+			public:
+
 				Section() {
 					_NativePointer = new asmjit::Section();
-					_Buffer = gcnew CodeBuffer();
+					_Buffer = gcnew CodeBuffer(_NativePointer->_buffer);
 				}
 				~Section() {
-					delete _Buffer;
 					delete NativePointer;
 				}
 
@@ -67,6 +84,11 @@ namespace AsmJit {
 					}
 					void set(SectionFlags f) {
 						_NativePointer->_flags = (uint32_t)f;
+					}
+				};
+				property CodeBuffer^ Buffer {
+					CodeBuffer^ get() {
+						return _Buffer;
 					}
 				};
 				property System::String^ Name {
@@ -87,6 +109,18 @@ namespace AsmJit {
 					}
 				};
 			};
+
+			property array<Section^>^ Sections {
+				array<Section^>^ get() {
+					size_t srcLen = _NativePointer->_sections.size();
+					array<Section^>^ a = gcnew array<Section^>(srcLen);
+					for (size_t i = 0; i < srcLen; i++)
+					{
+						a[i] = gcnew Section(*_NativePointer->_sections[i]);
+					}
+					return a;
+				}
+			}
 
 
 			CodeHolder() {

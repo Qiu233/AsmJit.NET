@@ -48,8 +48,10 @@ namespace AsmJit {
 			};
 
 			public ref class Label :Operand {
+			internal:
+				Label(asmjit::Label& id) { _NativePointer = new asmjit::Label(id); }
 			public:
-				Label(uint32_t id) { _NativePointer = new asmjit::Imm(); }
+				Label(uint32_t id) { _NativePointer = new asmjit::Label(); }
 				static operator asmjit::Label&(Label^ op) {
 					return *(asmjit::Label*)op->NativePointer;
 				}

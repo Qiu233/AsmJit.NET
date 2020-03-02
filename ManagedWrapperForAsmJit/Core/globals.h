@@ -5,6 +5,7 @@
 #define MWASMJIT_NATIVEPOINTERCTOR(NAME, T)	internal: NAME(T* ptr) { _NativePointer = ptr; }
 
 #define MWASMJIT_NATIVEPROPERTY_WRAPPER(TYPE, NAME, NATIVENAME)	public: property TYPE NAME { TYPE get() { return _NativePointer->NATIVENAME; } void set(TYPE value) { _NativePointer->NATIVENAME = value; } }
+#define MWASMJIT_NATIVEPROPERTY_WRAPPER_GETTERONLY(TYPE, NAME, NATIVENAME)	public: property TYPE NAME { TYPE get() { return _NativePointer->NATIVENAME; } }
 
 #define MWASMJIT_EXTENSION_METHOD(TYPE) generic<typename T> where T : TYPE[ExtensionAttribute] static 
 
