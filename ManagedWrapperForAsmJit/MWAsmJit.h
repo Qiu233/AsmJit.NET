@@ -1,0 +1,16 @@
+#pragma once
+#include "../asmjit/asmjit/src/asmjit/asmjit.h"
+#include "./Core/globals.h"
+#include "./Core/operand.h"
+#include "./Core/arch.h"
+#include "./Core/target.h"
+#include "./Core/codeholder.h"
+#include "./Core/emitter.h"
+#include "./Core/assembler.h"
+#include "./Core/builder.h"
+#include "./Core/compiler.h"
+
+#include "./X86/x86globals.h"
+#include "./X86/x86operand.h"
+#include "./X86/x86emitter.h"
+#include "./X86/x86assembler.h"
