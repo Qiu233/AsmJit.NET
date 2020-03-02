@@ -19,7 +19,7 @@ namespace Test
 			holder.Initialize(info);
 			Assembler asm = new Assembler(holder);
 			asm.mov(RegsDef.eax, 20);
-			asm.cpuid();
+			asm.cbw();
 			EmitterImplicitHelper.cpuid(asm);
 			Console.WriteLine(info.BaseAddress.ToString("X8"));
 		}
