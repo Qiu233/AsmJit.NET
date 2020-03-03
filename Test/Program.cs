@@ -18,10 +18,12 @@ namespace Test
 			CodeHolder holder = new CodeHolder();
 			holder.Initialize(info);
 			Assembler asm = new Assembler(holder);
+			Label l1 = asm.NewLabel();
 			asm.mov(RegsDef.eax, 20);
 			asm.mov(RegsDef.ebx, 40);
+			var err = asm.jmp(l1);
 			asm.ret();
-			Console.WriteLine("Code Length:{0}", holder.Sections.Length);
+			Console.WriteLine("Code Length:{0}", holder.Sections[0].Buffer.Size);
 			byte* b = holder.Sections[0].Buffer.Data;
 			for (int i = 0; i < holder.Sections[0].Buffer.Size; i++)
 			{
