@@ -131,6 +131,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="MWAsmJit.cpp" />
+    <ClCompile Include="x86\x86builder.h" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Core\arch.h" />

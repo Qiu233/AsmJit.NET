@@ -14,3 +14,4 @@
 #include "./X86/x86operand.h"
 #include "./X86/x86emitter.h"
 #include "./X86/x86assembler.h"
+#include "./X86/x86builder.h"

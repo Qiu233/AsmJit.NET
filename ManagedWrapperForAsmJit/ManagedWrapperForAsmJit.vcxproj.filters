@@ -24,6 +24,9 @@
     <ClCompile Include="MWAsmJit.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="x86\x86builder.h">
+      <Filter>Header Files\X86</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Core\codeholder.h">
