@@ -12,6 +12,19 @@
 namespace AsmJit {
 	namespace Core {
 		namespace  Globals {
+			public ref class Utils abstract sealed{
+			public:
+				static char* StringToCharPointer(System::String^ str) {
+					char* str2 = (char*)(void*)System::Runtime::InteropServices::Marshal::StringToHGlobalAnsi(str);
+					return str2;
+				}
+				static void FreeManagedCharPointer(char* str) {
+					System::Runtime::InteropServices::Marshal::FreeHGlobal((System::IntPtr)str);
+				}
+				static System::String^ CharPointerToString(char* str) {
+					return gcnew System::String(str);
+				}
+			};
 			public enum class ResetPolicy : uint32_t {
 				kResetSoft = 0,
 				kResetHard = 1

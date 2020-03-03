@@ -19,8 +19,9 @@ namespace Test
 			holder.Initialize(info);
 			Assembler asm = new Assembler(holder);
 			Label l1 = asm.NewLabel();
-			asm.Bind(l1);
 			var err = asm.jmp(l1);
+			asm.mov(RegsDef.eax, 20);
+			asm.Bind(l1);
 			Console.WriteLine("ErrorCode:{0}", err);
 			Console.WriteLine("Code Length:{0}", holder.Sections[0].Buffer.Size);
 			byte* b = holder.Sections[0].Buffer.Data;

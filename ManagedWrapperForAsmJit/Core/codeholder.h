@@ -5,6 +5,7 @@ namespace AsmJit {
 		public ref class CodeHolder {
 			MWASMJIT_NATIVEPOINTER(CodeHolder, asmjit::CodeHolder);
 		public:
+
 			ref class CodeBuffer {
 				MWASMJIT_NATIVEPOINTER(CodeBuffer, asmjit::CodeBuffer);
 			public:
@@ -56,7 +57,6 @@ namespace AsmJit {
 				};
 			private:CodeBuffer^ _Buffer;
 			public:
-
 			internal:
 				Section(asmjit::Section& section) {
 					_NativePointer = &section;
@@ -142,6 +142,42 @@ namespace AsmJit {
 			}
 
 
+			AsmJit::Core::Globals::Error NewSection([System::Runtime::InteropServices::OutAttribute] Section^% sectionOut, System::String^ name, size_t nameSize, uint32_t flags, uint32_t alignment) {
+				asmjit::Section* section;
+				char* rawName = AsmJit::Core::Globals::Utils::StringToCharPointer(name);
+				AsmJit::Core::Globals::Error err = (AsmJit::Core::Globals::Error)NativePointer->newSection(&section, rawName, nameSize, flags, alignment);
+				AsmJit::Core::Globals::Utils::FreeManagedCharPointer(rawName);
+				sectionOut = gcnew Section(*section);
+				return err;
+			}
+			AsmJit::Core::Globals::Error NewSection([System::Runtime::InteropServices::OutAttribute] Section^% sectionOut, System::String^ name, size_t nameSize, uint32_t flags) {
+				return NewSection(sectionOut, name, nameSize, flags, 1);
+			}
+			AsmJit::Core::Globals::Error NewSection([System::Runtime::InteropServices::OutAttribute] Section^% sectionOut, System::String^ name, size_t nameSize) {
+				return NewSection(sectionOut, name, nameSize, 0);
+			}
+			AsmJit::Core::Globals::Error NewSection([System::Runtime::InteropServices::OutAttribute] Section^% sectionOut, System::String^ name) {
+				return NewSection(sectionOut, name, SIZE_MAX);
+			}
+
+			//! Returns a section entry of the given index.
+			Section^ SectionById(uint32_t sectionId) {
+				return gcnew Section(*NativePointer->sectionById(sectionId));
+			}
+
+			//! Returns section-id that matches the given `name`.
+			//!
+			//! If there is no such section `Section::kInvalidId` is returned.
+			Section^ SectionByName(System::String^ name, size_t nameSize) {
+				char* rawName = AsmJit::Core::Globals::Utils::StringToCharPointer(name);
+				Section^ s = gcnew Section(*NativePointer->sectionByName(rawName, nameSize));
+				AsmJit::Core::Globals::Utils::FreeManagedCharPointer(rawName);
+				return s;
+			}
+
+			Section^ SectionByName(System::String^ name) {
+				return SectionByName(name, SIZE_MAX);
+			}
 		};
 	}
 }

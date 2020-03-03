@@ -196,8 +196,6 @@
     <ClCompile Include="asmjit\src\asmjit\x86\x86logging.cpp" />
     <ClCompile Include="asmjit\src\asmjit\x86\x86operand.cpp" />
     <ClCompile Include="asmjit\src\asmjit\x86\x86rapass.cpp" />
-    <ClCompile Include="asmtk\src\asmtk\asmparser.cpp" />
-    <ClCompile Include="asmtk\src\asmtk\asmtokenizer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="asmjit\src\asmjit\asmjit.h" />
@@ -258,13 +256,6 @@
     <ClInclude Include="asmjit\src\asmjit\x86\x86opcode_p.h" />
     <ClInclude Include="asmjit\src\asmjit\x86\x86operand.h" />
     <ClInclude Include="asmjit\src\asmjit\x86\x86rapass_p.h" />
-    <ClInclude Include="asmtk\src\asmtk\asmparser.h" />
-    <ClInclude Include="asmtk\src\asmtk\asmtk.h" />
-    <ClInclude Include="asmtk\src\asmtk\asmtokenizer.h" />
-    <ClInclude Include="asmtk\src\asmtk\elfdefs.h" />
-    <ClInclude Include="asmtk\src\asmtk\globals.h" />
-    <ClInclude Include="asmtk\src\asmtk\parserutils.h" />
-    <ClInclude Include="asmtk\src\asmtk\strtod.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

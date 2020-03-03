@@ -3,6 +3,3 @@
 using namespace System;
 using namespace asmjit;
 
-void main() {
-	AsmJit::Core::ArchInfo info;
-}
